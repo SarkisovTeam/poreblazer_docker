@@ -1,10 +1,8 @@
-from ase import Atoms
-from ase.io import read, write
 import argparse
-import pathlib
 import subprocess
 from glob import glob
 import shutil
+import tarfile
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-i','--InputFolder',
@@ -31,26 +29,20 @@ parser.add_argument('-f','--FrameworkName',
                     help='Name of the framework used (and associated .cif file).')
 
 args = parser.parse_args()
-input_file = pathlib.Path(args.InputFolder,  args.FrameworkName).with_suffix('.cif')
 
-target = read(input_file)
+with tarfile.open('xyz.tgz', 'r:gz') as tar:
+    tar.extract(f'{args.OutputFolder}/{args.FrameworkName}.xyz')
 
-output_str = ''
-output_str += f'{args.FrameworkName}.xyz'
-output_str += '\n'
-output_str += ' '.join([str(x) for x in target.cell.lengths()])
-output_str += '\n'
-output_str += ' '.join([str(x) for x in target.cell.angles()])
-with open('input.dat', 'w') as f:
-    f.write(output_str)
+# shutil.copyfile(f'{args.InputFolder}/{args.FrameworkName}.xyz', f'/run/{args.FrameworkName}.xyz')
 
-target.write(f'{args.FrameworkName}.xyz', format='xyz')
-
-with open('output.txt', 'w') as output_summary:
-    subprocess.run(['./poreblazer.exe', './input.dat'], stdout=output_summary)
+with open('/run/output.txt', 'w') as output_summary:
+    subprocess.run(['/run/poreblazer.exe', f'{args.InputFolder}/input.dat'], stdout=output_summary)
 
 outputfiles = glob('*.txt')
 for x in outputfiles:
     shutil.copyfile(x, f'{args.OutputFolder}/{args.FrameworkName}_{x}')
     
-shutil.copyfile('summary.dat', f'{args.OutputFolder}/{args.FrameworkName}_summary.dat')
+shutil.copyfile('/run/summary.dat', f'{args.OutputFolder}/{args.FrameworkName}_summary.dat')
+
+with tarfile.open('summary.tgz', 'w:gz') as tar:
+    tar.add(f'{args.OutputFolder}/{args.FrameworkName}_summary.dat')

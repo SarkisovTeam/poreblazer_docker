@@ -27,6 +27,7 @@ COPY probe_occupiable_volume.xyz probe_occupiable_volume.xyz
 COPY runscript.py runscript.py
 COPY poreblazer_preprocess.py poreblazer_preprocess.py
 COPY poreblazer_run.py poreblazer_run.py
+COPY poreblazer_postprocess.py poreblazer_postprocess.py
 COPY copy_files.py copy_files.py
 
 

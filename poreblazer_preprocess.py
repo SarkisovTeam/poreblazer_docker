@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 from ase import Atoms
 from ase.io import read, write
 import argparse

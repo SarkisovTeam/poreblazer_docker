@@ -1,9 +1,4 @@
-<<<<<<< Updated upstream
-#!/usr/bin/env python
-
-=======
 #!/usr/bin/env python3
->>>>>>> Stashed changes
 import argparse
 import subprocess
 from glob import glob

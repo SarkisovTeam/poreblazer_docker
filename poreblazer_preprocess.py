@@ -1,9 +1,4 @@
-<<<<<<< Updated upstream
-#!/usr/bin/env python
-
-=======
 #!/usr/bin/env python3
->>>>>>> Stashed changes
 from ase import Atoms
 from ase.io import read, write
 import argparse

@@ -10,15 +10,6 @@ from pathlib import Path
 import tarfile
 
 
-<<<<<<< Updated upstream
-# # Required parameters
-parser = argparse.ArgumentParser(description='Amalgamating geometric descriptors.')
-parser.add_argument('directory',
-                    type=str,
-                    action='store',
-                    metavar='DIRECTORY',
-                    help='Directory for storing input/output files.')
-=======
 parser = argparse.ArgumentParser()
 parser.add_argument('-i','--InputFolder',
                     type=Path,
@@ -35,41 +26,21 @@ parser.add_argument('-o','--OutputFolder',
                     metavar='OUTPUT_FOLDER',
                     default='.',
                     help='Intended location for output files.')
->>>>>>> Stashed changes
 
 parser.add_argument('-f','--FrameworkName',
                     type=str,
                     action='store',
                     required=True,
                     metavar='FRAMEWORK_NAME',
-<<<<<<< Updated upstream
-                    help='Name of the framework used (associated with the .cif file).')
-args = parser.parse_args()
-
-=======
                     help='Name of the framework used (and associated .cif file).')
 
 args = parser.parse_args()
 
 
->>>>>>> Stashed changes
 # Build the geometric dictionary
 geometric_dict = {'geometricProperties': []}
 
 
-<<<<<<< Updated upstream
-inputdir = args.directory # Path(r'C:\Users\d23895jm\Desktop\poreblazer_docker_interface')
-framework = args.FrameworkName # 'pcn-57'
-filename = f'{framework}_summary.dat'
-
-data = []
-
-
-with tarfile.open('summary.tgz', 'r:gz') as tar:
-    tar.extract(f'{args.directory}/{filename}')
-
-with open(Path(inputdir) / filename, 'r') as f:
-=======
 
 filename = f'{args.FrameworkName}_summary.dat'
 
@@ -78,7 +49,6 @@ with tarfile.open(args.InputFolder / 'summary.tgz', 'r:gz') as tar:
     tar.extract(args.InputFolder /f'{args.FrameworkName}_summary.dat')
 
 with open(args.InputFolder /f'{args.FrameworkName}_summary.dat', 'r') as f:
->>>>>>> Stashed changes
     for line in f:
         data.append(line.strip().split())
 
@@ -120,10 +90,6 @@ geometric_dict['geometricProperties'] += output
 
 # Dump the geometric dictionary to a json file
 # with open(os.path.join(arg.directory, 'geometricProperties.json'), mode='w') as f:
-<<<<<<< Updated upstream
-with open(inputdir / 'geometricProperties.json', mode='w') as f:
-=======
 with open(args.OutputDir / 'geometricProperties.json', mode='w') as f:
->>>>>>> Stashed changes
 
     json.dump(geometric_dict, f, indent=2)

@@ -1,5 +1,9 @@
+<<<<<<< Updated upstream
 #!/usr/bin/env python
 
+=======
+#!/usr/bin/env python3
+>>>>>>> Stashed changes
 import argparse
 import subprocess
 from glob import glob
@@ -32,12 +36,12 @@ parser.add_argument('-f','--FrameworkName',
 
 args = parser.parse_args()
 
-with tarfile.open('xyz.tgz', 'r:gz') as tar:
+with tarfile.open(f'{args.OutputFolder}/xyz.tgz', 'r:gz') as tar:
     tar.extract(f'{args.OutputFolder}/{args.FrameworkName}.xyz')
 
 # shutil.copyfile(f'{args.InputFolder}/{args.FrameworkName}.xyz', f'/run/{args.FrameworkName}.xyz')
 
-with open('/run/output.txt', 'w') as output_summary:
+with open(f'./output.txt', 'w') as output_summary:
     subprocess.run(['/run/poreblazer.exe', f'{args.InputFolder}/input.dat'], stdout=output_summary)
 
 outputfiles = glob('*.txt')
@@ -46,5 +50,7 @@ for x in outputfiles:
     
 shutil.copyfile('/run/summary.dat', f'{args.OutputFolder}/{args.FrameworkName}_summary.dat')
 
-with tarfile.open('summary.tgz', 'w:gz') as tar:
+with tarfile.open(f'{args.OutputFolder}/summary.tgz', 'w:gz') as tar:
     tar.add(f'{args.OutputFolder}/{args.FrameworkName}_summary.dat')
+    for x in outputfiles:
+        tar.add(f'{args.OutputFolder}/{args.FrameworkName}_{x}')

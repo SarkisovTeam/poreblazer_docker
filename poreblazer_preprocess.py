@@ -1,5 +1,9 @@
+<<<<<<< Updated upstream
 #!/usr/bin/env python
 
+=======
+#!/usr/bin/env python3
+>>>>>>> Stashed changes
 from ase import Atoms
 from ase.io import read, write
 import argparse
@@ -80,5 +84,5 @@ with open(f'{args.OutputFolder}/input.dat', 'w') as f:
 
 target.write(f'{args.OutputFolder}/{args.FrameworkName}.xyz', format='xyz')
 
-with tarfile.open('cif.tgz', 'w:gz') as tar:
+with tarfile.open(f'{args.OutputFolder}/xyz.tgz', 'w:gz') as tar:
     tar.add(f'{args.OutputFolder}/{args.FrameworkName}.xyz')

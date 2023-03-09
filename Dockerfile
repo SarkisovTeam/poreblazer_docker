@@ -28,7 +28,10 @@ COPY runscript.py runscript.py
 COPY poreblazer_preprocess.py poreblazer_preprocess.py
 COPY poreblazer_run.py poreblazer_run.py
 COPY poreblazer_postprocess.py poreblazer_postprocess.py
+<<<<<<< Updated upstream
 COPY copy_files.py copy_files.py
+=======
+>>>>>>> Stashed changes
 
 
 

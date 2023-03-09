@@ -6,13 +6,12 @@
 import argparse
 import json
 import os
-from pathlib import Path
 import tarfile
 
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-i','--InputFolder',
-                    type=Path,
+                    type=str,
                     action='store',
                     required=False,
                     metavar='INPUT_FOLDER',
@@ -20,7 +19,7 @@ parser.add_argument('-i','--InputFolder',
                     help='Location of the framework CIF files.')
 
 parser.add_argument('-o','--OutputFolder',
-                    type=Path,
+                    type=str,
                     action='store',
                     required=False,
                     metavar='OUTPUT_FOLDER',
@@ -45,10 +44,10 @@ geometric_dict = {'geometricProperties': []}
 filename = f'{args.FrameworkName}_summary.dat'
 
 data = []
-with tarfile.open(args.InputFolder / 'summary.tgz', 'r:gz') as tar:
-    tar.extract(args.InputFolder /f'{args.FrameworkName}_summary.dat')
+with tarfile.open(f'{args.InputFolder}/summary.tgz', 'r:gz') as tar:
+    tar.extract(f'{args.InputFolder}/{args.FrameworkName}_summary.dat')
 
-with open(args.InputFolder /f'{args.FrameworkName}_summary.dat', 'r') as f:
+with open(f'{args.InputFolder}/{args.FrameworkName}_summary.dat', 'r') as f:
     for line in f:
         data.append(line.strip().split())
 
@@ -90,6 +89,6 @@ geometric_dict['geometricProperties'] += output
 
 # Dump the geometric dictionary to a json file
 # with open(os.path.join(arg.directory, 'geometricProperties.json'), mode='w') as f:
-with open(args.OutputDir / 'geometricProperties.json', mode='w') as f:
+with open(f'{args.OutputFolder}/geometricProperties.json', mode='w') as f:
 
     json.dump(geometric_dict, f, indent=2)

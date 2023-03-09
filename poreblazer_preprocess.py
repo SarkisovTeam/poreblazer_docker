@@ -64,7 +64,7 @@ args = parser.parse_args()
 copy_cif_file(args.FrameworkFolder, args.FrameworkSource, args.FrameworkName, args.OutputFolder)
 
 # Calculate self-consistent properties
-input_file = pathlib.Path(args.OutputFolder,  args.FrameworkName).with_suffix('.cif')
+input_file = pathlib.Path(args.FrameworkFolder,  args.FrameworkName).with_suffix('.cif')
 
 target = read(input_file)
 

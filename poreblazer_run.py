@@ -31,10 +31,10 @@ parser.add_argument('-f','--FrameworkName',
 
 args = parser.parse_args()
 
-with tarfile.open(f'{args.OutputFolder}/xyz.tgz', 'r:gz') as tar:
-    tar.extract(f'{args.OutputFolder}/{args.FrameworkName}.xyz')
+with tarfile.open(f'{args.InputFolder}/xyz.tgz', 'r:gz') as tar:
+    tar.extract(f'{args.InputFolder}/{args.FrameworkName}.xyz')
 
-# shutil.copyfile(f'{args.InputFolder}/{args.FrameworkName}.xyz', f'/run/{args.FrameworkName}.xyz')
+shutil.copyfile(f'{args.InputFolder}/{args.FrameworkName}.xyz', f'/run/{args.FrameworkName}.xyz')
 
 with open(f'./output.txt', 'w') as output_summary:
     subprocess.run(['/run/poreblazer.exe', f'{args.InputFolder}/input.dat'], stdout=output_summary)
